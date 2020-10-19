@@ -1,11 +1,9 @@
 ---
-layout: maximum
-title: Maximum subarray with related best buy and sell problems
-date: 2020-04-27 13:11:41
-tags: 
-- Dynamic Programming
-- Algorithm
+title: maximum-subarray
+date: 2020-10-19 17:36:52
+tags:
 ---
+
 #### Maximum Subarray
 
 Given an integer array `nums`, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
@@ -29,7 +27,7 @@ Explanation: [4,-1,2,1] has the largest sum = 6.
   对于左右的最大子串呢，就可以递归地去找啦。因为又是独立的数组了。
 
   而中间的就要去计算它的左右边界，也就是把从A[i-1]开始A[0]累加，看加到哪里为止有最大值。要一直加到A[0]哦，每次都比较和更新最大值。右边也是一样。最后再加上A[i]就得到maxCenterSub。
-  
+
 
   ![](/images/maxSub-1.png)
 
@@ -192,3 +190,4 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
       return maxProfit;
   };
   ```
+
