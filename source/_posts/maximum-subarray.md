@@ -1,6 +1,6 @@
 ---
-title: maximum-subarray
-date: 2020-10-19 17:36:52
+title: Maximum Subarray
+date: 2020-9-30 17:36:52
 tags:
 ---
 
@@ -28,10 +28,10 @@ Explanation: [4,-1,2,1] has the largest sum = 6.
 
   And for the middle one, its left and right boundaries has to be calculated, that is, accumulate A[0] starting from A[i-1], and see where the maximum is reached. Remember always adding to A[0], comparing and updating the maximum value each time. The same as for the right part. Finally, add A[i] to get maxCenterSub.
 
-  而中间的就要去计算它的左右边界，也就是把从A[i-1]开始A[0]累加，看加到哪里为止有最大值。要一直加到A[0]哦，每次都比较和更新最大值。右边也是一样。最后再加上A[i]就得到maxCenterSub。
+  
 
 
-  ![](/images/maxSub-1.png)
+  ![image-2020042818242232](/images/maxSub-1.png)
 
 - **Analysis**
 
@@ -86,8 +86,6 @@ function maxSubSumRec(A, left, right) {
 - **Idea**
 
   The principle is that the maximum substring must start with a positive number (if there is one in the array).
-
-  因此当找到第一个正数的时候从前往后去累加，当sum>0时，对于后面的部分还是增益的，还有可能继续增长。但当sum<=0时，再累加的话对后面的部分就是拖累了，也就是会减小。可以这么看，把后面的元素一个个往第一个位置加，所以sum可以看成是子串的开头，我们在往下寻找最大子串的时候，肯定要舍弃前面为负的部分。
 
   Therefore, when the first positive number is found, we can accumulate from it to back. When sum>0, the latter part is still gaining, and it may continue to increase. But when sum<=0, if it accumulates, it will drag down the latter part, that is, it will decrease. We can look at it this way: Add the following elements one by one to the first position, and sum can be regarded as the beginning of the substring, thus when we look for the largest substring, we must discard the negative part before it.
 

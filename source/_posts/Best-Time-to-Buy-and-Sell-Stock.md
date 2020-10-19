@@ -1,6 +1,6 @@
 ---
-title: Best-Time-to-Buy-and-Sell-Stock
-date: 2020-10-19 18:09:06
+title: Best Time to Buy and Sell Stock
+date: 2020-10-1 18:09:06
 tags:
 ---
 
