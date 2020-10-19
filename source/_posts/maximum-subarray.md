@@ -1,7 +1,9 @@
 ---
 title: Maximum Subarray
 date: 2020-9-30 17:36:52
-tags:
+tags: 
+- Dynamic Programming
+- Algorithm
 ---
 
 #### Maximum Subarray
