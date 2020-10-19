@@ -26,13 +26,13 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="maximum-subarray">
 <meta property="og:url" content="https://lanyetc.github.io/blog/2020/10/19/maximum-subarray/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Blueleaf&#39;s Blog">
 <meta property="og:description" content="Maximum SubarrayGiven an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum. Example: 123Input: [-2,1,-3,4,-1,2,1,-5,4],Outp">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lanyetc.github.io/images/maxSub-1.png">
 <meta property="article:published_time" content="2020-10-19T17:36:52.000Z">
-<meta property="article:modified_time" content="2020-10-19T09:41:34.913Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2020-10-19T10:25:43.901Z">
+<meta property="article:author" content="Ye Lan">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lanyetc.github.io/images/maxSub-1.png">
 
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>maximum-subarray | Hexo</title>
+  <title>maximum-subarray | Blueleaf's Blog</title>
   
 
 
@@ -110,7 +110,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Hexo</h1>
+      <h1 class="site-title">Blueleaf's Blog</h1>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -150,20 +150,20 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Maximum-Subarray"><span class="nav-number">1.</span> <span class="nav-text">Maximum Subarray</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Best-Time-to-Buy-and-Sell-Stock"><span class="nav-number">2.</span> <span class="nav-text">Best Time to Buy and Sell Stock</span></a></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Maximum-Subarray"><span class="nav-number">1.</span> <span class="nav-text">Maximum Subarray</span></a></li></ol></div>
       </section>
       <!--/noindex-->
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
+  <p class="site-author-name" itemprop="name">Ye Lan</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -208,12 +208,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Ye Lan">
       <meta itemprop="description" content="">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Blueleaf's Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -229,7 +229,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2020-10-19 17:36:52 / Modified: 09:41:34" itemprop="dateCreated datePublished" datetime="2020-10-19T17:36:52+00:00">2020-10-19</time>
+      <time title="Created: 2020-10-19 17:36:52 / Modified: 10:25:43" itemprop="dateCreated datePublished" datetime="2020-10-19T17:36:52+00:00">2020-10-19</time>
     </span>
 
   
@@ -248,71 +248,52 @@
 
 
 
-<p><strong>Solution 1: 递归求解</strong></p>
+<p><strong>Solution 1: recursive algorithm</strong></p>
 <ul>
-<li><p><strong>思路</strong></p>
-<p>对于数组A里的某一个元素A[i]，A的最大子串要不在A[i]的左边，要不在A[i]的右边，要不就包含A[i] （横跨了它）。因此，只要选择maxLeftSub, maxRightSub和maxCenterSub即可。我们的分割就以中间为基准做分割啦。</p>
-<p>对于左右的最大子串呢，就可以递归地去找啦。因为又是独立的数组了。</p>
+<li><p><strong>Idea</strong></p>
+<p>For an element A[i] of an array A, the maximun subarray should be at the left of A[i], or the right, or include A[i] (acrossing it). Thus, we can just select maxLeftSub, maxRightSub and maxCenterSub. Our division will be based on the middle.</p>
+<p>For the left and right maximum substrings, we can find them recursively. Because it is an independent array again.</p>
+<p>And for the middle one, its left and right boundaries has to be calculated, that is, accumulate A[0] starting from A[i-1], and see where the maximum is reached. Remember always adding to A[0], comparing and updating the maximum value each time. The same as for the right part. Finally, add A[i] to get maxCenterSub.</p>
 <p>而中间的就要去计算它的左右边界，也就是把从A[i-1]开始A[0]累加，看加到哪里为止有最大值。要一直加到A[0]哦，每次都比较和更新最大值。右边也是一样。最后再加上A[i]就得到maxCenterSub。</p>
 </li>
 </ul>
 <p>  <img src="/images/maxSub-1.png"></p>
 <ul>
-<li><p><strong>分析</strong></p>
-<p>递归算法共同的痛：浪费时间，运行时间是O(nlogn)。而且还用了超多额外空间的。</p>
-<p><em>Note</em>: 这个方法能同时得出子串是什么，以及起止位置</p>
+<li><p><strong>Analysis</strong></p>
+<p>The painpoint of recursive algorithms: waste of time - running time is O(nlogn). And also used a lot of extra space.</p>
+<p><em>Note</em>: This method can also figure out what the substring is and where it starts and ends.</p>
 </li>
-<li><p><strong>实现</strong></p>
+<li><p><strong>Implementation</strong></p>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxSubArray = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> maxSubSumRec(nums, <span class="number">0</span>, nums.length-<span class="number">1</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">maxSubSumRec</span>(<span class="params">A, left, right</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (left &gt;= right) &#123; <span class="comment">// 单个元素</span></span><br><span class="line">        <span class="keyword">return</span> A[left];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> center = <span class="built_in">Math</span>.floor((left+right) / <span class="number">2</span>);</span><br><span class="line">    <span class="comment">// 递归计算左边的最大子串</span></span><br><span class="line">    <span class="keyword">let</span> maxLeftSum = maxSubSumRec(A, left, center-<span class="number">1</span>);</span><br><span class="line">  	<span class="comment">// 递归计算右边的最大子串</span></span><br><span class="line">    <span class="keyword">let</span> maxRightSum = maxSubSumRec(A, center+<span class="number">1</span>, right);</span><br><span class="line">    </span><br><span class="line">  	<span class="comment">// 计算左边边界</span></span><br><span class="line">    <span class="keyword">let</span> maxLeftBorderSum = A[center]; </span><br><span class="line">    <span class="keyword">let</span> leftBorderSum = maxLeftBorderSum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = center-<span class="number">1</span>; i &gt;= left; i--) &#123;</span><br><span class="line">        leftBorderSum += A[i];</span><br><span class="line">        maxLeftBorderSum = <span class="built_in">Math</span>.max(maxLeftBorderSum, leftBorderSum);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 计算右边边界</span></span><br><span class="line">    <span class="keyword">let</span> maxRightBorderSum = A[center]; </span><br><span class="line">    <span class="keyword">let</span> rightBorderSum = maxRightBorderSum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = center+<span class="number">1</span>; i &lt;= right; i++) &#123;</span><br><span class="line">        rightBorderSum += A[i];</span><br><span class="line">        maxRightBorderSum = <span class="built_in">Math</span>.max(maxRightBorderSum, rightBorderSum);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> centerSum = maxLeftBorderSum + maxRightBorderSum - A[center];</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.max(maxLeftSum, maxRightSum, centerSum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxSubArray = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> maxSubSumRec(nums, <span class="number">0</span>, nums.length-<span class="number">1</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">maxSubSumRec</span>(<span class="params">A, left, right</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (left &gt;= right) &#123; <span class="comment">// single element</span></span><br><span class="line">        <span class="keyword">return</span> A[left];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> center = <span class="built_in">Math</span>.floor((left+right) / <span class="number">2</span>);</span><br><span class="line">    <span class="comment">// Recursively calculate the maximum substring on the left</span></span><br><span class="line">    <span class="keyword">let</span> maxLeftSum = maxSubSumRec(A, left, center-<span class="number">1</span>);</span><br><span class="line">  	<span class="comment">// Recursively calculate the maximum substring on the right</span></span><br><span class="line">    <span class="keyword">let</span> maxRightSum = maxSubSumRec(A, center+<span class="number">1</span>, right);</span><br><span class="line">    </span><br><span class="line">  	<span class="comment">// Calculate the left margin</span></span><br><span class="line">    <span class="keyword">let</span> maxLeftBorderSum = A[center]; </span><br><span class="line">    <span class="keyword">let</span> leftBorderSum = maxLeftBorderSum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = center-<span class="number">1</span>; i &gt;= left; i--) &#123;</span><br><span class="line">        leftBorderSum += A[i];</span><br><span class="line">        maxLeftBorderSum = <span class="built_in">Math</span>.max(maxLeftBorderSum, leftBorderSum);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Calculate the right margin</span></span><br><span class="line">    <span class="keyword">let</span> maxRightBorderSum = A[center]; </span><br><span class="line">    <span class="keyword">let</span> rightBorderSum = maxRightBorderSum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = center+<span class="number">1</span>; i &lt;= right; i++) &#123;</span><br><span class="line">        rightBorderSum += A[i];</span><br><span class="line">        maxRightBorderSum = <span class="built_in">Math</span>.max(maxRightBorderSum, rightBorderSum);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> centerSum = maxLeftBorderSum + maxRightBorderSum - A[center];</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.max(maxLeftSum, maxRightSum, centerSum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><strong>Solution 2: 动态规划</strong></p>
+<p><strong>Solution 2: Dynamic Programming</strong></p>
 <ul>
-<li><p><strong>思路</strong></p>
-<p>原理来说就是一个最大的子串一定会以正数开头（如果数组里存在正数的话）。</p>
+<li><p><strong>Idea</strong></p>
+<p>The principle is that the maximum substring must start with a positive number (if there is one in the array).</p>
 <p>因此当找到第一个正数的时候从前往后去累加，当sum&gt;0时，对于后面的部分还是增益的，还有可能继续增长。但当sum&lt;=0时，再累加的话对后面的部分就是拖累了，也就是会减小。可以这么看，把后面的元素一个个往第一个位置加，所以sum可以看成是子串的开头，我们在往下寻找最大子串的时候，肯定要舍弃前面为负的部分。</p>
+<p>Therefore, when the first positive number is found, we can accumulate from it to back. When sum&gt;0, the latter part is still gaining, and it may continue to increase. But when sum&lt;=0, if it accumulates, it will drag down the latter part, that is, it will decrease. We can look at it this way: Add the following elements one by one to the first position, and sum can be regarded as the beginning of the substring, thus when we look for the largest substring, we must discard the negative part before it.</p>
 </li>
-<li><p><strong>分析</strong></p>
-<p>时间复杂度是O(n)，因为只做了一遍循环</p>
+<li><p><strong>Analysis</strong></p>
+<p>The time complexity is O(n), because the loop is only done once</p>
 </li>
-<li><p><strong>实现</strong></p>
+<li><p><strong>Implementation</strong></p>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxSubArray = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> max = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="title">for</span>(<span class="params"><span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++</span>)</span> &#123;</span><br><span class="line">        sum += nums[i];</span><br><span class="line">        max = <span class="built_in">Math</span>.max(sum, max);</span><br><span class="line">        <span class="keyword">if</span> (sum &lt;= <span class="number">0</span> &amp;&amp; i &lt; nums.length-<span class="number">1</span>) &#123; </span><br><span class="line">          <span class="comment">// 如果sum&lt;=0，说明前面的子串累加对后面没有增益了，因此重新从下一个位置开始计算sum</span></span><br><span class="line">            sum = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(maxSubArray([-<span class="number">2</span>, <span class="number">1</span>]));</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxSubArray = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> max = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="title">for</span>(<span class="params"><span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++</span>)</span> &#123;</span><br><span class="line">        sum += nums[i];</span><br><span class="line">        max = <span class="built_in">Math</span>.max(sum, max);</span><br><span class="line">        <span class="keyword">if</span> (sum &lt;= <span class="number">0</span> &amp;&amp; i &lt; nums.length-<span class="number">1</span>) &#123; </span><br><span class="line">          <span class="comment">// If sum&lt;=0, it means that the previous substring accumulation has no gain to the back, so the sum is calculated from the next position again</span></span><br><span class="line">            sum = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(maxSubArray([-<span class="number">2</span>, <span class="number">1</span>]));</span><br></pre></td></tr></table></figure>
 
 
 
-<p><strong>另一种实现</strong></p>
-<p>更加节省空间：在循环的时候不占用额外内存（在计算max的时候可能还是用了），每一个nums[i]存储的都是它为终点的最大累加值。因为子串肯定以某一个元素作为终点，所以这样相当于算了所有可能性，只要再去找其中最大的值就可以了。</p>
+<p>**Another Implementation **</p>
+<p>More space-saving: no extra memory is used during the loop (may still be used when calculating max), and each nums[i] stores its maximum accumulated value as the end point. Because the substring must end with a certain element, this is equivalent to calculating all the possibilities, and we just need to find the largest value among them.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxSubArray = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123; </span><br><span class="line">    <span class="function"><span class="title">for</span>(<span class="params"><span class="keyword">let</span> i = <span class="number">1</span>; i &lt; nums.length; i++</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i-<span class="number">1</span>] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            nums[i] += nums[i-<span class="number">1</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.max(...nums);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
 
-
-<h4 id="Best-Time-to-Buy-and-Sell-Stock"><a href="#Best-Time-to-Buy-and-Sell-Stock" class="headerlink" title="Best Time to Buy and Sell Stock"></a>Best Time to Buy and Sell Stock</h4><p>Say you have an array for which the <em>i</em>th element is the price of a given stock on day <em>i</em>.</p>
-<p>If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
-<p>Note that you cannot sell a stock before you buy one.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,1,5,3,6,4]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: Buy on day 2 (price &#x3D; 1) and sell on day 5 (price &#x3D; 6), profit &#x3D; 6-1 &#x3D; 5.</span><br><span class="line">             Not 7-1 &#x3D; 6, as selling price needs to be larger than buying price.</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,6,4,3,1]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: In this case, no transaction is done, i.e. max profit &#x3D; 0.</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><p><strong>思路</strong></p>
-<p>就跟最大子串那个很像，循环一次去找在哪一天卖出利益最大。要存储之前的最低成本和最高利润。</p>
-</li>
-<li><p><strong>实现</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">prices</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span>(<span class="params">prices</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> minCost = prices[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> maxProfit = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; prices.length; i++) &#123;</span><br><span class="line">        minCost = prices[i-<span class="number">1</span>] &lt; minCost ? prices[i-<span class="number">1</span>] : minCost;</span><br><span class="line">        <span class="keyword">if</span> (prices[i] &gt; minCost) &#123;</span><br><span class="line">            maxProfit = (prices[i]-minCost) &gt; maxProfit ? prices[i]-minCost : maxProfit;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxProfit;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
 
     </div>
 
@@ -331,6 +312,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/blog/2020/10/19/Best-Time-to-Buy-and-Sell-Stock/" rel="next" title="Best-Time-to-Buy-and-Sell-Stock">
+                  Best-Time-to-Buy-and-Sell-Stock <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -382,7 +366,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Ye Lan</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
