@@ -116,11 +116,11 @@ Explanation:
 
 
 
-- **思路**：
+- **Idea**：
 
   Convert the number to a string first, then use split to cut each bit into the array, calculate the sum, and recurse when the sum is not 1. Save each sum, and stop when the sum starts to repeat.
 
-* **实现**
+* **Implemetation**
 
   arr.reduce(function, initialValue): Combine the array according to the function method. If arr.length == 1, and no initialValue is specified, the single element value of the original array is returned directly without executing the callback method.
 
