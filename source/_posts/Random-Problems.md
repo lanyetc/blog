@@ -1,7 +1,7 @@
 ---
 title: Random Problems
 date: 2020-10-03 18:44:16
-tags:
+categories: 
 - Algorithm
 ---
 
