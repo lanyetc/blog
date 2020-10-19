@@ -156,12 +156,16 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
-      <div class="site-state-item site-state-tags">
+      <div class="site-state-item site-state-categories">
         <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -192,6 +196,140 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://lanyetc.github.io/blog/2020/10/07/Variable-Declaration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Ye Lan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blueleaf's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/10/07/Variable-Declaration/" class="post-title-link" itemprop="url">Variable Declaration</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-10-07 19:14:12" itemprop="dateCreated datePublished" datetime="2020-10-07T19:14:12+00:00">2020-10-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-10-19 11:27:51" itemprop="dateModified" datetime="2020-10-19T11:27:51+00:00">2020-10-19</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Variable-Declaration"><a href="#Variable-Declaration" class="headerlink" title="Variable Declaration"></a>Variable Declaration</h2><h3 id="Let-keyword"><a href="#Let-keyword" class="headerlink" title="Let keyword"></a>Let keyword</h3><p><strong>Features</strong>：</p>
+<ol>
+<li>No variable hoisting —— Variables can only be used after declaration.</li>
+<li>Temporal dead zone —— If <code>let</code> declares a variable v, then v cannot be used before let declares it in the scope of let. It can be said that before v is declared, it already exists (this variable name is already occupied and cannot be used (sorry for the nonsense in the brackets)), but it cannot be obtained. Only after it is declared can it be obtained and used.</li>
+<li>No repeated declaration of variables —— Therefore, it is not allowed to redeclare variables inside the function.</li>
+</ol>
+<h3 id="Block-scope"><a href="#Block-scope" class="headerlink" title="Block scope"></a>Block scope</h3><p>There are only global scope and function scope in ES5. ES6 adds block-level scope, and block-level scope must be in braces. (But it doesn’t seem right. ES5 also has the concept of block-level scope, but there are only two types of variables: global and function-level.)</p>
+<p>In the ES5 specification, it is not allowed to declare functions in block-level scope. (But if you declare it, no error will be reported. The browser still supports it, but it does not conform to the specification.) In ES6, it is clearly allowed to declare functions in the block-level scope. The behavior of the function declaration statement is equivalent to let, and the function is not referable outside the block-level scope.</p>
+<p>But! Look at the following code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The ES6 environment of the browser</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am outside!&#x27;</span>); &#125;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="comment">// Declare function f repeatedly</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am inside!&#x27;</span>); &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  f();</span><br><span class="line">&#125;());</span><br><span class="line"><span class="comment">// Uncaught TypeError: f is not a function</span></span><br></pre></td></tr></table></figure>
+
+<p>It should output<code>I am outside!</code>, but for ES6 browsers, this code will report an error. Because ES6 browsers still follow the<code>var</code>method for the functions declared in the block-level scope。In other words, the function declaration will be promoted to the head of the global or function scope. That is, the function declared in the block-level scope is actually equivalent to the behavior of the var variable.</p>
+<p>The above code will be converted to:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am outside!&#x27;</span>); &#125;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> f = <span class="literal">undefined</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="comment">// Declare function f repeatedly</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;I am inside!&#x27;</span>); &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  f();</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+
+<p>Due to environmental differences and other factors, it is best not to declare functions in the block-level scope. If you want to use it, it is best to write a function expression with let:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;I am inside!&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="Const-keyword"><a href="#Const-keyword" class="headerlink" title="Const keyword"></a>Const keyword</h3><p><code>Const</code> declares a read-only constant and its value cannot be changed once it is declared. Like let, it has no variable promotion, temporary dead zone, and no repeated declarations.</p>
+<p><strong>Features</strong>：</p>
+<ol>
+<li>A value must be assigned when declaring a const variable, otherwise an error will be reported. (Because if you don’t assign a value at the beginning, you can’t modify it later, this variable has no meaning to provoke it.)</li>
+<li><code>Const</code> essentially guarantees that the value stored in the memory address pointed to by the variable remains unchanged. Therefore, for basic types, its value cannot be changed. For composite types, only a pointer to the real data is stored in the memory address pointed to by the variable. So only the pointer does not change, but the actual data can still be modified. For example, object or array, etc., can be operated on.</li>
+</ol>
+<h4 id="Freeze-Object"><a href="#Freeze-Object" class="headerlink" title="Freeze Object"></a>Freeze Object</h4><p>If you really want to freeze an object, use the<code>Object.freeze()</code>method. This method can prevent the object from adding/deleting/modifying attributes. To completely freeze an object, the properties of each object type should also be frozen.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.freeze(obj);</span><br><span class="line"><span class="built_in">Object</span>.keys(obj).forEach(<span class="function">(<span class="params">key ,i</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> obj[key] == <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">    <span class="built_in">Object</span>.freeze(obj);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="ES6-method-of-declaring-variables"><a href="#ES6-method-of-declaring-variables" class="headerlink" title="ES6 method of declaring variables"></a>ES6 method of declaring variables</h3><p>There are 6 ways to declare variables in ES6：<code>var, function, let, const, import, class</code>.</p>
+<h3 id="The-top-level-object"><a href="#The-top-level-object" class="headerlink" title="The top level object"></a>The top level object</h3><p>The top-level object refers to the<code>window</code>object in the browser, and the <code>global</code> object in the node.</p>
+<p>In ES5, global variables are equivalent to the properties of the top-level object. When a global variable is declared, it automatically becomes an attribute of the top-level object. Will cause some problems:</p>
+<ol>
+<li>No errors will be reported for undeclared variables at compile time, and errors will only be reported at runtime. Because it is likely to be a property created by the top-level object, and the creation of the property is dynamic.</li>
+<li>The attributes of the top-level object can be read and written arbitrarily, which is not conducive to modular programming.</li>
+<li>The <code>windows</code> object has an entity meaning and represents a browser object. This is not appropriate, because we may attach some attributes to it that are not related to this entity.</li>
+</ol>
+<p>ES6 attempts to unbind global variables and top-level objects. It stipulates that the variables declared by <code>var</code> and <code>function</code> (ES5’s original variable declaration method) are still attributes of the top-level object, while global variables declared by <code>let, const, class</code> do not belong to the top-level object.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>; <span class="comment">// Use var to declare a global variable</span></span><br><span class="line">windows.a; <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span>; <span class="comment">// Use let to declare a global variable</span></span><br><span class="line">windows.b; <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>The top-level objects are not uniform in different implementations:</p>
+<ol>
+<li>In the browser, <code>windows</code> is the top-level object, and <code>global</code> in node is the top-level object.</li>
+<li>The <code>self</code> in the browser and web worker also points to the top-level object, there is no <code>self</code> in the node</li>
+</ol>
+<h4 id="globalThis-object"><a href="#globalThis-object" class="headerlink" title="globalThis object"></a>globalThis object</h4><p>ES2020 introduced <code>globalThis</code> as the top-level object, which exists in any environment. This ensures that the top-level object can be obtained by it in any environment.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -232,8 +370,17 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-10-19 11:00:28" itemprop="dateModified" datetime="2020-10-19T11:00:28+00:00">2020-10-19</time>
+        <time title="Modified: 2020-10-19 11:27:51" itemprop="dateModified" datetime="2020-10-19T11:27:51+00:00">2020-10-19</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -361,8 +508,17 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-10-19 11:00:28" itemprop="dateModified" datetime="2020-10-19T11:00:28+00:00">2020-10-19</time>
+        <time title="Modified: 2020-10-19 11:27:51" itemprop="dateModified" datetime="2020-10-19T11:27:51+00:00">2020-10-19</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -531,8 +687,17 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-10-19 11:00:28" itemprop="dateModified" datetime="2020-10-19T11:00:28+00:00">2020-10-19</time>
+        <time title="Modified: 2020-10-19 11:27:51" itemprop="dateModified" datetime="2020-10-19T11:27:51+00:00">2020-10-19</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
 
   
 </div>
